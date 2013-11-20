@@ -1,23 +1,10 @@
-// Mechanism to pull in additional CSS or JavaScript files
+Textual.includeScriptResourceFile("jquery-2.0.3.min.js");
+Textual.includeScriptResourceFile("emoji.js");
 
-// Textual.include_js("jquery.min.js");
-// Textual.include_css("more_theme.css");
-
-
-// Function called when new message from IRC has been posted to display
-
-// Textual.newMessagePostedToDisplay = function(lineNumber)
-// {
-//		var newLine = document.getElementById("line" + lineNumber);
-// }
-
-
-// Functions called for contextual menus used within WebView
-// DO NOT change without knowledge of what to do. 
-// Safe to remove from source code if not needed. 
-
-// Textual.on_url = function() { app.setUrl(event.target.innerHTML); }
-// Textual.on_addr = function() { app.setAddr(event.target.innerHTML); }
-// Textual.on_chname = function() { app.setChan(event.target.innerHTML); }
-// Textual.on_ct_nick: function() { app.setNick(event.target.innerHTML); }
-// Textual.on_nick = function() { app.setNick(event.target.parentNode.parentNode.getAttribute('nick')); }
+Textual.newMessagePostedToView = function(lineNumber) {
+  var selector = "#line-" + lineNumber + " .message"
+  var $message = $(selector);
+  var message = $message.html()
+  var output = emoji.replace_colons(message);
+  $message.html(output)
+}
